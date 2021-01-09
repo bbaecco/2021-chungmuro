@@ -81,4 +81,66 @@ router.post('/login', function(req, res, next){
   })
 });
 
+//탈퇴
+router.post('/signout', function(req, res, next) {
+  User.destroy({ 
+    where: { userid: req.body.user.userid } 
+   });
+
+   Diary.destroy({ 
+    where: { userid: req.body.user.userid } 
+   });
+
+   Diary_front.destroy({ 
+    where: { userid: req.body.user.userid } 
+   });
+
+  console.log('✓탈퇴 성공');
+  res.send({
+  "result_user_signout": "ok"
+  })
+});
+
+//현재 관심 분야
+router.post('/interest', function(req, res, next){
+  //아이디가 db에 있는지 확인
+  User.findOne({
+    where: {userid: req.body.user.userid}
+  }).then(user => {
+    /*아이디 있을 때*/
+    if(user !=null){  
+      res.send({
+        "result_user_interest": "ok",
+        "interest": user.interest
+      })
+      console.log('✓관심 분야 전달 완료');
+    }
+  })
+  
+  .catch((err) => {
+
+  })
+});
+
+//관심 분야 변경
+router.post('/interestChange', function(req, res, next){
+  //아이디가 db에 있는지 확인
+  User.findOne({
+    where: {userid: req.body.user.userid}
+  }).then(user => {
+    /*아이디 있을 때*/
+    if(user !=null){  
+      User.update({ 
+        interest: req.body.user.interest 
+       }, { 
+         where: { userid: req.body.user.userid} 
+       });
+      res.send({
+        "result_user_interestChange": "ok",
+      })
+      console.log('✓관심 분야 변경 완료');
+    }
+  })
+
+});
 module.exports = router;
