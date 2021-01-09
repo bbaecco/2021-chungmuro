@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('diary_front', {
     no: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true

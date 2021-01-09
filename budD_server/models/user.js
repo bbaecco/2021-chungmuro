@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('user', {
     no: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER(11).UNSIGNED,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     diary_cnt: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER(11),
       allowNull: false,
       defaultValue: '0'
     },
